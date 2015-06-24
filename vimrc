@@ -17,6 +17,7 @@ Plugin 'PyChimp'
 Plugin 'Distinguished'
 Plugin 'molokai'
 Plugin 'Solarized'
+Plugin 'chriskempson/base16-vim'
 Plugin 'The-NERD-Commenter'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'surround.vim'
@@ -71,12 +72,13 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-set background=dark
+"set background=dark
 "colorscheme PyChimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
-colorscheme molokai
+"colorscheme molokai
+colorscheme base16-default
 "colorscheme koehler
 "colorscheme solarized
 
