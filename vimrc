@@ -1,47 +1,47 @@
-"---------Vundle-------------
 set nocompatible               " be iMproved
+
+set encoding=utf-8
+set viminfo=
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle
-" required! 
-"Plugin 'gmarik/vundle'
-Plugin 'mitsuhiko/vim-python-combined'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'Auto-Pairs'
-Plugin 'PyChimp'
-Plugin 'Distinguished'
-Plugin 'molokai'
-Plugin 'Solarized'
-Plugin 'The-NERD-Commenter'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'surround.vim'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'kien/ctrlp.vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'PyChimp'
+Plug 'Distinguished'
+Plug 'molokai'
+Plug 'Solarized'
+Plug 'The-NERD-Commenter'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'surround.vim'
 " Git
-Plugin 'fugitive.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
-Plugin 'vim-scripts/python.vim'
-Plugin 'MatchTag'
-Plugin 'fatih/vim-go'
+Plug 'fugitive.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'vim-scripts/python.vim'
+Plug 'MatchTag'
+Plug 'fatih/vim-go'
+Plug 'unimpaired.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
 
-" All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on " required!
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Plugin command are not allowed..
-"-------------------------------
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/rainbow_parentheses.vim'
+
+" Multiple file types
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+
+autocmd! User YouCompleteMe call youcompleteme#Enable()
+
+" Add plugins to &runtimepath
+call plug#end()
 
 syntax on
 set hlsearch
@@ -71,12 +71,12 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-set background=dark
-"colorscheme PyChimp
+"set background=dark
+colorscheme PyChimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
-colorscheme molokai
+"colorscheme seoul256
 "colorscheme koehler
 "colorscheme solarized
 
@@ -88,15 +88,21 @@ filetype plugin indent on
 
 let NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos = "left"
-autocmd vimenter * NERDTree
-autocmd vimenter * wincmd 1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd vimenter * NERDTree
+"autocmd vimenter * wincmd 1
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 nmap <silent> <C-l> :NERDTreeToggle<CR>
 "map <F2> :NERDTreeToggle<CR>
 "nmap <silent> <leader>nt :NERDTreeToggle<CR>
-if winwidth(0) < 150
-    autocmd vimenter * NERDTreeToggle
-endif
+"if winwidth(0) < 150
+"    autocmd vimenter * NERDTreeToggle
+"endif
+
+" Activation based on file type
+augroup rainbow_lisp
+    autocmd!
+    autocmd FileType lisp,clojure,scheme RainbowParentheses
+augroup END
 
 autocmd! bufwritepost .vimrc source %
 
@@ -136,8 +142,7 @@ let g:airline_powerline_fonts = 1
 set laststatus=2 
 set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the spaces in the name properly
 
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-set list
+"exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"set list
 
 nnoremap K i<CR><Esc>
-
