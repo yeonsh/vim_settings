@@ -18,6 +18,7 @@ Plug 'Solarized'
 Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
+
 " Git
 Plug 'fugitive.vim'
 Plug 'airblade/vim-gitgutter'
@@ -72,11 +73,13 @@ set cursorline
 set splitbelow
 set splitright
 "set background=dark
+
 colorscheme PyChimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
 "colorscheme seoul256
+"colorscheme base16-default
 "colorscheme koehler
 "colorscheme solarized
 
