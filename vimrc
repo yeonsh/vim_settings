@@ -7,11 +7,9 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'mitsuhiko/vim-python-combined'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'PyChimp'
 Plug 'Distinguished'
 Plug 'molokai'
 Plug 'Solarized'
@@ -19,25 +17,45 @@ Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
 
+" Languages
+Plug 'PyChimp'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'vim-scripts/python.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'for': ['go'] }
+" python mode
+" use python-mode or jedi-vim and sytastic
+" to use syntastic install pylint on your virtualenv
+Plug 'klen/python-mode'
+"Plug 'davidhalter/jedi-vim'
+"Plug 'scrooloose/syntastic'
+
 " Git
 Plug 'fugitive.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'vim-scripts/python.vim'
 Plug 'MatchTag'
-Plug 'fatih/vim-go'
 Plug 'unimpaired.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
 
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/rainbow_parentheses.vim'
 
 " Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+Plug 'tpope/vim-salve', { 'for': ['clojure'] }
+Plug 'tpope/vim-projectionist', { 'for': ['clojure'] }
+Plug 'tpope/vim-dispatch', { 'for': ['clojure'] }
+Plug 'tpope/vim-fireplace', { 'for': ['clojure'] }
+Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
+
+" Haskell
+Plug 'dag/vim2hs'
+
+Plug 'IN3D/vim-raml'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -54,8 +72,8 @@ set nobackup
 set noswapfile
 "set textwidth=80
 "set colorcolumn=80
-set colorcolumn=80
-highlight colorcolumn guibg=#000000 ctermbg=246
+"set colorcolumn=80
+"highlight colorcolumn guibg=#000000 ctermbg=246
 "set guifont=Monaco:h12
 set tabstop=4
 set expandtab
@@ -149,3 +167,22 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the space
 "set list
 
 nnoremap K i<CR><Esc>
+
+"-------------------------
+" syntastic
+"-------------------------
+"
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+"-------------------------
+" pymode - Python mode
+"-------------------------
+
+let g:pymode = 1
