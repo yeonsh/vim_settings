@@ -92,7 +92,7 @@ set splitbelow
 set splitright
 "set background=dark
 
-colorscheme PyChimp
+colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
