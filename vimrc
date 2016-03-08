@@ -17,6 +17,8 @@ Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
 
+Plug 'Shougo/neocomplete.vim'
+
 " Languages
 Plug 'PyChimp'
 Plug 'mitsuhiko/vim-python-combined'
@@ -92,14 +94,14 @@ set splitbelow
 set splitright
 "set background=dark
 
-colorscheme pychimp
+"colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
 "colorscheme seoul256
 "colorscheme base16-default
 "colorscheme koehler
-"colorscheme solarized
+colorscheme solarized
 
 nmap <Space> za
 
@@ -161,7 +163,7 @@ command! Wcl :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; ech
 " Airline settings
 let g:airline_powerline_fonts = 1
 set laststatus=2 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the spaces in the name properly
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
 
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
@@ -184,5 +186,8 @@ nnoremap K i<CR><Esc>
 "-------------------------
 " pymode - Python mode
 "-------------------------
-
 let g:pymode = 1
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+set autochdir
