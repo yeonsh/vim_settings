@@ -25,14 +25,12 @@ Plug 'mitsuhiko/vim-python-combined'
 Plug 'vim-scripts/python.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'for': ['go'] }
-Plug 'garyburd/go-explorer', { 'for': ['go'] }
-Plug 'majutsushi/tagbar'
 " python mode
 " use python-mode or jedi-vim and sytastic
 " to use syntastic install pylint on your virtualenv
-"Plug 'klen/python-mode'
-Plug 'davidhalter/jedi-vim'
-Plug 'scrooloose/syntastic'
+Plug 'klen/python-mode'
+"Plug 'davidhalter/jedi-vim'
+"Plug 'scrooloose/syntastic'
 
 " Git
 Plug 'fugitive.vim'
@@ -41,6 +39,8 @@ Plug 'bling/vim-airline'
 Plug 'MatchTag'
 Plug 'unimpaired.vim'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
+
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 Plug 'junegunn/seoul256.vim'
@@ -52,15 +52,12 @@ Plug 'tpope/vim-salve', { 'for': ['clojure'] }
 Plug 'tpope/vim-projectionist', { 'for': ['clojure'] }
 Plug 'tpope/vim-dispatch', { 'for': ['clojure'] }
 Plug 'tpope/vim-fireplace', { 'for': ['clojure'] }
-"Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
-Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure'] }
+Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
 
 " Haskell
 Plug 'dag/vim2hs'
 
 Plug 'IN3D/vim-raml'
-Plug 'cesardeazevedo/Fx-ColorScheme'
-Plug 'Konfekt/FoldText'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -95,17 +92,16 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-set background=light
+"set background=dark
 
 "colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
 "colorscheme seoul256
+"colorscheme base16-default
 "colorscheme koehler
-"colorscheme solarized
-colorscheme fx
-"colorscheme molokai
+colorscheme solarized
 
 nmap <Space> za
 
@@ -145,7 +141,6 @@ autocmd FileType css noremap <buffer> <Leader>JJ :call CSSBeautify()<cr>
 
 nmap <silent> <leader>ev ;e $MYVIMRC<CR>
 nmap <silent> <leader>sv ;so $MYVIMRC<CR>
-nmap <F8> :TagbarToggle<CR>
 
 " go into next line in wrapped lines
 nnoremap j gj
@@ -173,7 +168,7 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the space
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
 
-"nnoremap K i<CR><Esc>
+nnoremap K i<CR><Esc>
 
 "-------------------------
 " syntastic
