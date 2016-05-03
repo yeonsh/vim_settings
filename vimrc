@@ -1,48 +1,71 @@
-"---------Vundle-------------
 set nocompatible               " be iMproved
+
+set encoding=utf-8
+set viminfo=
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle
-" required! 
-"Plugin 'gmarik/vundle'
-Plugin 'mitsuhiko/vim-python-combined'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'Auto-Pairs'
-Plugin 'PyChimp'
-Plugin 'Distinguished'
-Plugin 'molokai'
-Plugin 'Solarized'
-Plugin 'chriskempson/base16-vim'
-Plugin 'The-NERD-Commenter'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'surround.vim'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'kien/ctrlp.vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Distinguished'
+Plug 'molokai'
+Plug 'Solarized'
+Plug 'The-NERD-Commenter'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'surround.vim'
+
+Plug 'Shougo/neocomplete.vim'
+
+" Languages
+Plug 'PyChimp'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'vim-scripts/python.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'for': ['go'] }
+Plug 'garyburd/go-explorer', { 'for': ['go'] }
+Plug 'majutsushi/tagbar'
+" python mode
+" use python-mode or jedi-vim and sytastic
+" to use syntastic install pylint on your virtualenv
+"Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'scrooloose/syntastic'
+
 " Git
-Plugin 'fugitive.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
-Plugin 'vim-scripts/python.vim'
-Plugin 'MatchTag'
-Plugin 'fatih/vim-go'
+Plug 'fugitive.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'MatchTag'
+Plug 'unimpaired.vim'
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
 
-" All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on " required!
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Plugin command are not allowed..
-"-------------------------------
+Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/vim-easy-align'
+
+" Multiple file types
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+Plug 'tpope/vim-salve', { 'for': ['clojure'] }
+Plug 'tpope/vim-projectionist', { 'for': ['clojure'] }
+Plug 'tpope/vim-dispatch', { 'for': ['clojure'] }
+Plug 'tpope/vim-fireplace', { 'for': ['clojure'] }
+"Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
+Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure'] }
+
+" Haskell
+Plug 'dag/vim2hs'
+
+Plug 'IN3D/vim-raml'
+Plug 'cesardeazevedo/Fx-ColorScheme'
+Plug 'Konfekt/FoldText'
+
+autocmd! User YouCompleteMe call youcompleteme#Enable()
+
+" Add plugins to &runtimepath
+call plug#end()
 
 syntax on
 set hlsearch
@@ -54,8 +77,8 @@ set nobackup
 set noswapfile
 "set textwidth=80
 "set colorcolumn=80
-set colorcolumn=80
-highlight colorcolumn guibg=#000000 ctermbg=246
+"set colorcolumn=80
+"highlight colorcolumn guibg=#000000 ctermbg=246
 "set guifont=Monaco:h12
 set tabstop=4
 set expandtab
@@ -72,15 +95,17 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-"set background=dark
-"colorscheme PyChimp
+set background=light
+
+"colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
-"colorscheme molokai
-colorscheme base16-default
+"colorscheme seoul256
 "colorscheme koehler
 "colorscheme solarized
+colorscheme fx
+"colorscheme molokai
 
 nmap <Space> za
 
@@ -90,15 +115,21 @@ filetype plugin indent on
 
 let NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos = "left"
-autocmd vimenter * NERDTree
-autocmd vimenter * wincmd 1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd vimenter * NERDTree
+"autocmd vimenter * wincmd 1
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 nmap <silent> <C-l> :NERDTreeToggle<CR>
 "map <F2> :NERDTreeToggle<CR>
 "nmap <silent> <leader>nt :NERDTreeToggle<CR>
-if winwidth(0) < 150
-    autocmd vimenter * NERDTreeToggle
-endif
+"if winwidth(0) < 150
+"    autocmd vimenter * NERDTreeToggle
+"endif
+
+" Activation based on file type
+augroup rainbow_lisp
+    autocmd!
+    autocmd FileType lisp,clojure,scheme RainbowParentheses
+augroup END
 
 autocmd! bufwritepost .vimrc source %
 
@@ -114,6 +145,7 @@ autocmd FileType css noremap <buffer> <Leader>JJ :call CSSBeautify()<cr>
 
 nmap <silent> <leader>ev ;e $MYVIMRC<CR>
 nmap <silent> <leader>sv ;so $MYVIMRC<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " go into next line in wrapped lines
 nnoremap j gj
@@ -136,10 +168,31 @@ command! Wcl :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; ech
 " Airline settings
 let g:airline_powerline_fonts = 1
 set laststatus=2 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the spaces in the name properly
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
 
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-set list
+"exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"set list
 
-nnoremap K i<CR><Esc>
+"nnoremap K i<CR><Esc>
 
+"-------------------------
+" syntastic
+"-------------------------
+"
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+"-------------------------
+" pymode - Python mode
+"-------------------------
+let g:pymode = 1
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+set autochdir
