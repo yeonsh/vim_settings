@@ -6,18 +6,23 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
-Plug 'Lokaltog/vim-easymotion'
+"Plug 'Lokaltog/vim-easymotion'
 Plug 'Distinguished'
 Plug 'molokai'
 Plug 'Solarized'
 Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
+Plug 'tpope/vim-repeat'
 
 Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Konfekt/FastFold' " required by neocomplete
 
 " Languages
 Plug 'PyChimp'
@@ -25,11 +30,13 @@ Plug 'mitsuhiko/vim-python-combined'
 Plug 'vim-scripts/python.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'for': ['go'] }
+Plug 'garyburd/go-explorer', { 'for': ['go'] }
+Plug 'majutsushi/tagbar'
 " python mode
 " use python-mode or jedi-vim and sytastic
 " to use syntastic install pylint on your virtualenv
-Plug 'klen/python-mode'
-"Plug 'davidhalter/jedi-vim'
+"Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim'
 "Plug 'scrooloose/syntastic'
 
 " Git
@@ -39,8 +46,6 @@ Plug 'bling/vim-airline'
 Plug 'MatchTag'
 Plug 'unimpaired.vim'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
-
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 Plug 'junegunn/seoul256.vim'
@@ -52,12 +57,14 @@ Plug 'tpope/vim-salve', { 'for': ['clojure'] }
 Plug 'tpope/vim-projectionist', { 'for': ['clojure'] }
 Plug 'tpope/vim-dispatch', { 'for': ['clojure'] }
 Plug 'tpope/vim-fireplace', { 'for': ['clojure'] }
-Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
+"Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
+Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure'] }
 
 " Haskell
 Plug 'dag/vim2hs'
 
 Plug 'IN3D/vim-raml'
+Plug 'cesardeazevedo/Fx-ColorScheme'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -92,7 +99,7 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-"set background=dark
+set background=dark
 
 "colorscheme pychimp
 "colorscheme Distinguished
@@ -101,7 +108,9 @@ set splitright
 "colorscheme seoul256
 "colorscheme base16-default
 "colorscheme koehler
-colorscheme solarized
+"colorscheme solarized
+colorscheme fx
+"colorscheme molokai
 
 nmap <Space> za
 
@@ -141,6 +150,7 @@ autocmd FileType css noremap <buffer> <Leader>JJ :call CSSBeautify()<cr>
 
 nmap <silent> <leader>ev ;e $MYVIMRC<CR>
 nmap <silent> <leader>sv ;so $MYVIMRC<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " go into next line in wrapped lines
 nnoremap j gj
@@ -168,7 +178,7 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the space
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
 
-nnoremap K i<CR><Esc>
+"nnoremap K i<CR><Esc>
 
 "-------------------------
 " syntastic
@@ -184,10 +194,75 @@ nnoremap K i<CR><Esc>
 "let g:syntastic_check_on_wq = 0
 
 "-------------------------
+" Ultisnips
+"-------------------------
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"-------------------------
 " pymode - Python mode
 "-------------------------
 let g:pymode = 1
+let g:pymode_python ='python'
+let g:pymode_virtualenv = 1
 
 " neocomplete
+let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
-set autochdir
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" neosnippet. Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+      set conceallevel=0 concealcursor=niv
+endif
+
+"set autochdir
+let g:surround_{char2nr('o')} = "{{{\r}}}"
+
+" golang mapping
+au FileType go nmap <F10> :GoDef<CR>
+au FileType go nmap <silent> <leader>gd :GoDef<CR>
+au FileType go nmap <silent> <leader>ga :GoDoc<CR>
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_interfaces = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+
+
+" tagbar
+nmap <Leader>tb :TagbarToggle<CR>
