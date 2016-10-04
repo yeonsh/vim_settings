@@ -7,7 +7,7 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 "Plug 'Lokaltog/vim-easymotion'
@@ -99,7 +99,7 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-set background=dark
+set background=light
 
 "colorscheme pychimp
 "colorscheme Distinguished
@@ -171,9 +171,10 @@ command! Wc :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; echo
 command! Wcl :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; echo "$msg"; echo "via http://whatthecommit.com/`echo $msg | md5`"
 
 " Airline settings
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 set laststatus=2 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
+set guifont=Consolas\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
 
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
