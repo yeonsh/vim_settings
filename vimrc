@@ -99,18 +99,20 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
-set background=light
+set background=dark
 
 "colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
-"colorscheme seoul256
+colorscheme seoul256
 "colorscheme base16-default
 "colorscheme koehler
 "colorscheme solarized
-colorscheme fx
+"colorscheme fx
 "colorscheme molokai
+let g:seoul256_background = 235
+colo seoul256
 
 nmap <Space> za
 
@@ -267,3 +269,5 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " tagbar
 nmap <Leader>tb :TagbarToggle<CR>
+
+nmap =j :%!python -m json.tool<CR>
