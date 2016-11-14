@@ -6,7 +6,7 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 Plug 'Lokaltog/vim-easymotion'
@@ -58,6 +58,7 @@ Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
 Plug 'dag/vim2hs'
 
 Plug 'IN3D/vim-raml'
+Plug 'Konfekt/FastFold'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -88,20 +89,21 @@ set showcmd
 "set nowrap
 set autoindent
 set wildignore=*.pyc
-set cursorline
+"set cursorline
 "set wrap
 set splitbelow
 set splitright
-"set background=dark
+set background=dark
 
 "colorscheme pychimp
 "colorscheme Distinguished
 "colorscheme delek
 "colorscheme evening
-"colorscheme seoul256
+colorscheme seoul256
 "colorscheme base16-default
 "colorscheme koehler
-colorscheme solarized
+"colorscheme solarized
+"colorscheme molokai
 
 nmap <Space> za
 
@@ -111,6 +113,7 @@ filetype plugin indent on
 
 let NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos = "left"
+let g:NERDTreeIgnore = ['.pyc$']
 "autocmd vimenter * NERDTree
 "autocmd vimenter * wincmd 1
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -187,6 +190,9 @@ nnoremap K i<CR><Esc>
 " pymode - Python mode
 "-------------------------
 let g:pymode = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_lint_on_write = 1
+let g:pymode_rope_goto_definition_bind = "<C-]>"
 
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
