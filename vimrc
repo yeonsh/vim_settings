@@ -65,6 +65,7 @@ Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure'] }
 Plug 'dag/vim2hs'
 
 Plug 'IN3D/vim-raml'
+Plug 'Konfekt/FastFold'
 Plug 'cesardeazevedo/Fx-ColorScheme'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
@@ -96,7 +97,7 @@ set showcmd
 "set nowrap
 set autoindent
 set wildignore=*.pyc
-set cursorline
+"set cursorline
 "set wrap
 set splitbelow
 set splitright
@@ -112,6 +113,7 @@ colorscheme seoul256
 "colorscheme solarized
 "colorscheme fx
 "colorscheme molokai
+
 let g:seoul256_background = 235
 colo seoul256
 
@@ -123,6 +125,7 @@ filetype plugin indent on
 
 let NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos = "left"
+let g:NERDTreeIgnore = ['.pyc$']
 "autocmd vimenter * NERDTree
 "autocmd vimenter * wincmd 1
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -213,6 +216,9 @@ let g:UltiSnipsEditSplit="vertical"
 " pymode - Python mode
 "-------------------------
 let g:pymode = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_lint_on_write = 1
+let g:pymode_rope_goto_definition_bind = "<C-]>"
 let g:pymode_python ='python'
 let g:pymode_virtualenv = 1
 
