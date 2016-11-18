@@ -10,7 +10,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
-"Plug 'Lokaltog/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 Plug 'Distinguished'
 Plug 'molokai'
 Plug 'Solarized'
@@ -35,9 +35,10 @@ Plug 'majutsushi/tagbar'
 " python mode
 " use python-mode or jedi-vim and sytastic
 " to use syntastic install pylint on your virtualenv
-"Plug 'klen/python-mode'
-Plug 'davidhalter/jedi-vim'
-"Plug 'scrooloose/syntastic'
+"Plug 'davidhalter/jedi-vim'
+" or
+Plug 'klen/python-mode'
+Plug 'scrooloose/syntastic'
 
 " Git
 Plug 'fugitive.vim'
@@ -150,8 +151,8 @@ autocmd FileType javascript noremap <buffer> <Leader>JJ :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <Leader>JJ :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <Leader>JJ :call CSSBeautify()<cr>
 
-nmap <silent> <leader>ev ;e $MYVIMRC<CR>
-nmap <silent> <leader>sv ;so $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <F8> :TagbarToggle<CR>
 
 " go into next line in wrapped lines
@@ -271,3 +272,29 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 nmap <Leader>tb :TagbarToggle<CR>
 
 nmap =j :%!python -m json.tool<CR>
+
+"-----------------------------------------------
+" easymotion
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+"map / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+"nmap s <Plug>(easymotion-overwin-f)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
