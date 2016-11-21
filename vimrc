@@ -35,10 +35,10 @@ Plug 'majutsushi/tagbar'
 " python mode
 " use python-mode or jedi-vim and sytastic
 " to use syntastic install pylint on your virtualenv
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 " or
-Plug 'klen/python-mode'
-Plug 'scrooloose/syntastic'
+"Plug 'klen/python-mode'
+"Plug 'scrooloose/syntastic'
 
 " Git
 Plug 'fugitive.vim'
