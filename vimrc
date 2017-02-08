@@ -54,7 +54,7 @@ set nobackup
 set noswapfile
 "set textwidth=80
 "set colorcolumn=80
-set colorcolumn=80
+"set colorcolumn=80
 highlight colorcolumn guibg=#000000 ctermbg=246
 "set guifont=Monaco:h12
 set tabstop=4
@@ -72,11 +72,12 @@ set cursorline
 "set wrap
 set splitbelow
 set splitright
+set ignorecase " use \C in search word to do case-sensitive search
 "set background=dark
 
-colorscheme PyChimp
+"colorscheme PyChimp
 "colorscheme Distinguished
-"colorscheme delek
+colorscheme delek
 "colorscheme evening
 "colorscheme seoul256
 "colorscheme base16-default
@@ -149,3 +150,5 @@ set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the space
 "set list
 
 nnoremap K i<CR><Esc>
+
+set fencs=ucs-bom,utf-8,cp949
