@@ -6,38 +6,67 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'mitsuhiko/vim-python-combined'
+Plug 'ConradIrwin/vim-bracketed-paste'
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'PyChimp'
+Plug 'easymotion/vim-easymotion'
 Plug 'Distinguished'
 Plug 'molokai'
 Plug 'Solarized'
 Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
+Plug 'tpope/vim-repeat'
+
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Konfekt/FastFold' " required by neocomplete
+
+" Languages
+Plug 'PyChimp'
+Plug 'mitsuhiko/vim-python-combined'
+Plug 'vim-scripts/python.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'fatih/vim-go', { 'for': ['go'] }
+Plug 'garyburd/go-explorer', { 'for': ['go'] }
+Plug 'majutsushi/tagbar'
+" python mode
+" use python-mode or jedi-vim and sytastic
+" to use syntastic install pylint on your virtualenv
+Plug 'davidhalter/jedi-vim'
+" or
+"Plug 'klen/python-mode'
+"Plug 'scrooloose/syntastic'
 
 " Git
 Plug 'fugitive.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'vim-scripts/python.vim'
 Plug 'MatchTag'
-Plug 'fatih/vim-go'
 Plug 'unimpaired.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
-
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
 
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/rainbow_parentheses.vim'
 
 " Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+Plug 'tpope/vim-salve', { 'for': ['clojure'] }
+Plug 'tpope/vim-projectionist', { 'for': ['clojure'] }
+Plug 'tpope/vim-dispatch', { 'for': ['clojure'] }
+Plug 'tpope/vim-fireplace', { 'for': ['clojure'] }
+"Plug 'kien/rainbow_parentheses.vim', { 'for': ['clojure'] }
+Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure'] }
+
+" Haskell
+Plug 'dag/vim2hs'
+
+Plug 'IN3D/vim-raml'
+Plug 'Konfekt/FastFold'
+Plug 'cesardeazevedo/Fx-ColorScheme'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -55,7 +84,7 @@ set noswapfile
 "set textwidth=80
 "set colorcolumn=80
 "set colorcolumn=80
-highlight colorcolumn guibg=#000000 ctermbg=246
+"highlight colorcolumn guibg=#000000 ctermbg=246
 "set guifont=Monaco:h12
 set tabstop=4
 set expandtab
@@ -68,21 +97,25 @@ set showcmd
 "set nowrap
 set autoindent
 set wildignore=*.pyc
-set cursorline
+"set cursorline
 "set wrap
 set splitbelow
 set splitright
-set ignorecase " use \C in search word to do case-sensitive search
-"set background=dark
+set background=dark
 
-"colorscheme PyChimp
+"colorscheme pychimp
 "colorscheme Distinguished
 colorscheme delek
 "colorscheme evening
-"colorscheme seoul256
+colorscheme seoul256
 "colorscheme base16-default
 "colorscheme koehler
 "colorscheme solarized
+"colorscheme fx
+"colorscheme molokai
+
+let g:seoul256_background = 235
+colo seoul256
 
 nmap <Space> za
 
@@ -92,6 +125,7 @@ filetype plugin indent on
 
 let NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos = "left"
+let g:NERDTreeIgnore = ['.pyc$']
 "autocmd vimenter * NERDTree
 "autocmd vimenter * wincmd 1
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -120,8 +154,9 @@ autocmd FileType javascript noremap <buffer> <Leader>JJ :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <Leader>JJ :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <Leader>JJ :call CSSBeautify()<cr>
 
-nmap <silent> <leader>ev ;e $MYVIMRC<CR>
-nmap <silent> <leader>sv ;so $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " go into next line in wrapped lines
 nnoremap j gj
@@ -142,13 +177,130 @@ command! Wc :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; echo
 command! Wcl :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; echo "$msg"; echo "via http://whatthecommit.com/`echo $msg | md5`"
 
 " Airline settings
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 set laststatus=2 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12 "make sure to escape the spaces in the name properly
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
+set guifont=Consolas\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
 
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
 
-nnoremap K i<CR><Esc>
+"nnoremap K i<CR><Esc>
 
-set fencs=ucs-bom,utf-8,cp949
+"-------------------------
+" syntastic
+"-------------------------
+"
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+
+"-------------------------
+" Ultisnips
+"-------------------------
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"-------------------------
+" pymode - Python mode
+"-------------------------
+let g:pymode = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_lint_on_write = 1
+let g:pymode_rope_goto_definition_bind = "<C-]>"
+let g:pymode_python ='python'
+let g:pymode_virtualenv = 1
+
+" neocomplete
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" neosnippet. Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+      set conceallevel=0 concealcursor=niv
+endif
+
+"set autochdir
+let g:surround_{char2nr('o')} = "{{{\r}}}"
+
+" golang mapping
+au FileType go nmap <F10> :GoDef<CR>
+au FileType go nmap <silent> <leader>gd :GoDef<CR>
+au FileType go nmap <silent> <leader>ga :GoDoc<CR>
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_interfaces = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
+
+
+" tagbar
+nmap <Leader>tb :TagbarToggle<CR>
+
+nmap =j :%!python -m json.tool<CR>
+
+"-----------------------------------------------
+" easymotion
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+"map / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+"nmap s <Plug>(easymotion-overwin-f)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
