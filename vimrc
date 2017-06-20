@@ -111,7 +111,7 @@ set splitright
 
 "colorscheme pychimp
 "colorscheme Distinguished
-"colorscheme delek
+colorscheme delek
 "colorscheme evening
 colorscheme seoul256
 "colorscheme base16-default

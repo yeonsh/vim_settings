@@ -1,9 +1,4 @@
 vim_settings
 ============
 
-  ```sh
-  $ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-  $ vim
-
-  :BundleInstall
-  ```
+After cloning, install [vim-plug](https://github.com/junegunn/vim-plug)
