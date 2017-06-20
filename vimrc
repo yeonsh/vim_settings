@@ -6,26 +6,23 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'rizzatti/dash.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'Distinguished'
-Plug 'molokai'
-Plug 'Solarized'
 Plug 'The-NERD-Commenter'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'surround.vim'
 Plug 'tpope/vim-repeat'
 
-Plug 'Shougo/neocomplete.vim'
+"Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Konfekt/FastFold' " required by neocomplete
 
 " Languages
-Plug 'PyChimp'
 Plug 'mitsuhiko/vim-python-combined'
 Plug 'vim-scripts/python.vim'
 Plug 'rust-lang/rust.vim'
@@ -36,9 +33,10 @@ Plug 'majutsushi/tagbar'
 " use python-mode or jedi-vim and sytastic
 " to use syntastic install pylint on your virtualenv
 "Plug 'davidhalter/jedi-vim'
+"Plug 'scrooloose/syntastic'
 " or
-Plug 'klen/python-mode'
-Plug 'scrooloose/syntastic'
+Plug 'python-mode/python-mode'
+Plug 'vim-scripts/gtags.vim'
 
 " Git
 Plug 'fugitive.vim'
@@ -66,7 +64,16 @@ Plug 'dag/vim2hs'
 
 Plug 'IN3D/vim-raml'
 Plug 'Konfekt/FastFold'
+
+" Color schemes
+Plug 'zanglg/nova.vim'
+Plug 'albertorestifo/github.vim'
+Plug 'PyChimp'
 Plug 'cesardeazevedo/Fx-ColorScheme'
+Plug 'Distinguished'
+Plug 'molokai'
+Plug 'Solarized'
+Plug 'agude/vim-eldar'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -101,7 +108,6 @@ set wildignore=*.pyc
 "set wrap
 set splitbelow
 set splitright
-set background=dark
 
 "colorscheme pychimp
 "colorscheme Distinguished
@@ -113,9 +119,12 @@ colorscheme seoul256
 "colorscheme solarized
 "colorscheme fx
 "colorscheme molokai
+"colorscheme github
+"colorscheme nova
+"colorscheme eldar
 
-let g:seoul256_background = 235
-colo seoul256
+set background=dark
+let g:seoul256_background=0
 
 nmap <Space> za
 
@@ -179,8 +188,8 @@ command! Wcl :r!msg="`curl http://whatthecommit.com/index.txt 2>/dev/null`"; ech
 " Airline settings
 let g:airline_powerline_fonts = 0
 set laststatus=2 
-"set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
-set guifont=Consolas\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
+"set guifont=Consolas\ for\ Powerline:h14 "make sure to escape the spaces in the name properly
 
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 "set list
@@ -216,11 +225,13 @@ let g:UltiSnipsEditSplit="vertical"
 " pymode - Python mode
 "-------------------------
 let g:pymode = 1
-let g:pymode_rope_lookup_project = 0
-let g:pymode_lint_on_write = 1
+"let g:pymode_rope_lookup_project = 0
+"let g:pymode_lint_on_write = 1
 let g:pymode_rope_goto_definition_bind = "<C-]>"
-let g:pymode_python ='python'
+let g:pymode_rope_organize_imports_bind = '<C-c>ro'
+"let g:pymode_python ='python'
 let g:pymode_virtualenv = 1
+let g:pymode_lint_ignore = "E501"
 
 " neocomplete
 let g:acp_enableAtStartup = 0
@@ -304,3 +315,9 @@ map <Leader>h <Plug>(easymotion-linebackward)
 let g:EasyMotion_smartcase = 1
 
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+" Gtags
+nmap <C-><C-]> :GtagsCursor<CR>
+au FileType cpp nmap <Leader>gd :GtagsCursor<CR>
+"au FileType h nmap <Leader>gd :GtagsCursor<CR>
+
