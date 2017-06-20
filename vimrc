@@ -1,3 +1,4 @@
+"
 set nocompatible               " be iMproved
 
 set encoding=utf-8
@@ -12,9 +13,9 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'The-NERD-Commenter'
+Plug 'scrooloose/nerdcommenter'
 Plug 'maksimr/vim-jsbeautify'
-Plug 'surround.vim'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 "Plug 'Shougo/neocomplete.vim'
@@ -24,7 +25,7 @@ Plug 'Konfekt/FastFold' " required by neocomplete
 
 " Languages
 Plug 'mitsuhiko/vim-python-combined'
-Plug 'vim-scripts/python.vim'
+Plug 'python-mode/python-mode'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'for': ['go'] }
 Plug 'garyburd/go-explorer', { 'for': ['go'] }
@@ -35,15 +36,14 @@ Plug 'majutsushi/tagbar'
 "Plug 'davidhalter/jedi-vim'
 "Plug 'scrooloose/syntastic'
 " or
-Plug 'python-mode/python-mode'
-Plug 'vim-scripts/gtags.vim'
+Plug 'yeonsh/gtags.vim'
 
 " Git
-Plug 'fugitive.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'MatchTag'
-Plug 'unimpaired.vim'
+Plug 'gregsexton/MatchTag'
+Plug 'tpope/vim-unimpaired'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'for': 'cpp' }
 
 Plug 'junegunn/fzf', { 'do': 'yes \| ./install' }
@@ -68,11 +68,11 @@ Plug 'Konfekt/FastFold'
 " Color schemes
 Plug 'zanglg/nova.vim'
 Plug 'albertorestifo/github.vim'
-Plug 'PyChimp'
+Plug 'notpratheek/PyChimp-vim'
 Plug 'cesardeazevedo/Fx-ColorScheme'
-Plug 'Distinguished'
-Plug 'molokai'
-Plug 'Solarized'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
 Plug 'agude/vim-eldar'
 
 autocmd! User YouCompleteMe call youcompleteme#Enable()
