@@ -28,7 +28,7 @@ Plug 'mitsuhiko/vim-python-combined'
 Plug 'python-mode/python-mode'
 Plug 'rust-lang/rust.vim'
 Plug 'fatih/vim-go', { 'for': ['go'] }
-Plug 'garyburd/go-explorer', { 'for': ['go'] }
+"Plug 'garyburd/go-explorer', { 'for': ['go'] }
 Plug 'majutsushi/tagbar'
 " python mode
 " use python-mode or jedi-vim and sytastic
